@@ -40,7 +40,7 @@ router.post('/new', upload.single('image'), async (req, res) => {
                 content: req.body.content
             });
             await candidate.save();
-            res.status(200).json(`Отзыв #${lastNumber} добавлен`);
+            res.status(200).json(`Отзыв №${lastNumber} добавлен`);
         } catch (e) {
             console.log(e.message);
             res.status(400).json('Что-то пошло не так. Попробуйте позже.')
@@ -61,6 +61,7 @@ router.delete('/all', upload.single('image'), async (req, res) => {
 });
 
 router.delete('/deleteOne', upload.single('image'), async (req, res) => {
+    console.log(req.body);
     if (checkSign(req, res)) {
         try {
             await Review.findOneAndDelete({number: req.body.number}, (err) => console.log(err));
@@ -85,6 +86,7 @@ router.get('/all', async (req, res) => {
 router.patch('/edit', upload.single('image'), async (req, res) => {
     try {
         if (checkSign(req, res)) {
+            console.log(req.body);
             let updated = {
                 name: req.body.name,
                 number: req.body.number,

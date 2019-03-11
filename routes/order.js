@@ -2,37 +2,37 @@ var express = require('express');
 var router = express.Router();
 var path = require('path');
 var nodemailer = require('nodemailer');
+var config = require('../config/keys');
 
 /* GET home page. */
 router.post('/:type', function (req, res, next) {
     const contactEmail = req.body.email;
-    console.log(req.body);
     switch (req.params.type) {
-        case '1':{
-            sendEmail(req.body, res);
+        case 'program':{
+            sendEmail(req, res);
             break;
         }
         case 'phone':{
-            sendEmailPhone(req.body, res);
+            sendEmailPhone(req, res);
         }
     }
 });
 
-function sendEmail(req1, res){
+function sendEmail(req, res){
     var transporter = nodemailer.createTransport({
         host: "smtp.yandex.ru",
         port: 465,
         secure: true,
         auth: {
-            user:'iqlex1',
+            user: config.emailLogin,
             pass: process.env.PASS
         }
     });
-   let html = req1.body.html;
+   let html = req.body.html;
 
     var mailOptions = {
         from: '"Банк" <iqlex1@yandex.ru>',
-        to: 'info@fabrikabloknotov.ru',
+        to: config.emailReceiver,
         subject: 'Заказ расчета с сайта ФабрикаБлокнотов',
         html: html
     };
@@ -47,22 +47,22 @@ function sendEmail(req1, res){
         }
     });
 }
-function sendEmailPhone(req1, res){
+function sendEmailPhone(req, res){
     var transporter = nodemailer.createTransport({
         host: "smtp.yandex.ru",
         port: 465,
         secure: true,
         auth: {
-            user:'iqlex1',
+            user: config.emailLogin,
             pass: process.env.PASS
         }
     });
 
-    let html = req1.body.html;
+    let html = req.body.html;
 
     var mailOptions = {
         from: '"Банк" <iqlex1@yandex.ru>',
-        to: 'info@fabrikabloknotov.ru',
+        to: config.emailReceiver,
         subject: 'Заказ звонка с сайта ФабрикаБлокнотов',
         html: html + '<div><h3>Заказ</h3> <h4> <span><b>Пользователь просит перезвонить ему.</b></span> ' +
             '</h4></div><br><br><br><br><br><div><h4><span><i>Это письмо было создано автоматически.</i>' +

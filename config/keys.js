@@ -1,4 +1,6 @@
 module.exports = {
-  secretKey: 'fdk12ii201-lxkdsdkiiskdj',
-  mongoURI: 'mongodb://localhost:27017'
+    secretKey: '11',
+    mongoURI: 'mongodb://localhost:27017',
+    emailReceiver: 'vkstrfrt@gmail.com',
+    emailLogin: 'iqlex1'
 };

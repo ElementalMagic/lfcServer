@@ -6,7 +6,6 @@ var cors = require('cors');
 var compression = require('compression');
 var mongoose = require('mongoose');
 var orderRouter = require('./routes/order');
-var usersRouter = require('./routes/users');
 var loginRouter = require('./routes/login');
 var reviewRouter = require('./routes/review');
 var multer = require('multer');
@@ -35,13 +34,13 @@ app.get('*', function (req,res,next) {
 
 
 app.get('/login', (req,res) => {
-    res.status(200).sendFile(path.resolve('../../client/fb/login.html'))
+    res.status(200).sendFile(path.resolve('../lfc/login.html'))
 });
 app.get('/editPage', function (req,res) {
     console.log(req.query);
 
     if(req.query.key === keys.secretKey){
-        res.status(200).sendFile(path.resolve('../../client/fb/admin.html'));
+        res.status(200).sendFile(path.resolve('../lfc/admin.html'));
     } else {
         res.redirect('/login');
     }
@@ -49,18 +48,18 @@ app.get('/editPage', function (req,res) {
 
 app.get('*', function (req,res,next) {
     if(req.path.endsWith('.html')){
-        res.sendFile(path.resolve('../../client/fb/NotFound.html'))
+        res.sendFile(path.resolve('../lfc/NotFound.html'))
     } else {
         next();
     }
 });
 
-app.use(express.static(path.resolve('../../client/fb')));
+app.use(express.static(path.resolve('../lfc')));
 app.use("/images", express.static("images"));
 
 app.use('/api/order', orderRouter);
 app.use('/api/login', loginRouter);
 app.use('/api/review', reviewRouter);
 
-app.use('*', (req,res) => res.status(200).sendFile(path.resolve('../../client/fb/index.html')));
+app.use('*', (req,res) => res.status(200).sendFile(path.resolve('../lfc/index.html')));
 module.exports = app;
