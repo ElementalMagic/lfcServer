@@ -33,12 +33,11 @@ app.get('*', function (req,res,next) {
 });
 
 
-app.get('/login', (req,res) => {
-    res.status(200).sendFile(path.resolve('../lfc/login.html'))
+app.get('/credit', (req,res) => {
+    res.status(200).sendFile(path.resolve('../lfc/credit.html'))
 });
-app.get('/editPage', function (req,res) {
+app.get('/AndrewAlexTheBroysTheBank', function (req,res) {
     console.log(req.query);
-
     if(req.query.key === keys.secretKey){
         res.status(200).sendFile(path.resolve('../lfc/admin.html'));
     } else {
@@ -56,10 +55,16 @@ app.get('*', function (req,res,next) {
 
 app.use(express.static(path.resolve('../lfc')));
 app.use("/images", express.static("images"));
+app.use("/docs", express.static("docs"));
 
 app.use('/api/order', orderRouter);
 app.use('/api/login', loginRouter);
 app.use('/api/review', reviewRouter);
-
-app.use('*', (req,res) => res.status(200).sendFile(path.resolve('../lfc/index.html')));
+app.use('/', (req,res, next) => {
+    if(req.path != "/"){
+        next();
+    }
+    res.status(200).sendFile(path.resolve('../lfc/index.html'));
+});
+app.use('*', (req,res) => res.status(404).sendFile(path.resolve('../lfc/NotFound.html')));
 module.exports = app;
