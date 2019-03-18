@@ -87,6 +87,6 @@ app.use('/404', (req, res) => {
     res.status(404).sendFile(path.resolve('../lfc/NotFound.html'))
 });
 app.use('*', (req, res) => {
-    res.status(404).redirect('http://localhost/404');
+    res.status(404).redirect('https://lenfincentr.ru/404');
 });
 module.exports = app;
