@@ -14,7 +14,7 @@ var path = require('path');
 var fs = require('fs');
 if(!process.env.DEV) {
 
-    console.log(options.key);
+
 }
 const options = {
     key: fs.readFileSync(path.resolve('../../etc/letsencrypt/live/lenfincentr.ru/privkey.pem'), 'utf-8'),
