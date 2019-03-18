@@ -14,9 +14,9 @@ var path = require('path');
 var fs = require('fs');
 if(!process.env.DEV) {
     const options = {
-        key: fs.readFileSync(path.resolve('key.key'), 'utf-8'),
-        cert: fs.readFileSync(path.resolve('certificate.crt'), 'utf-8'),
-        ca: [fs.readFileSync(path.resolve('certificate_ca.crt'), 'utf-8')]
+        key: fs.readFileSync(path.resolve('../../etc/letsencrypt/live/lenfincentr.ru/privkey.pem'), 'utf-8'),
+        cert: fs.readFileSync(path.resolve('../../etc/letsencrypt/live/lenfincentr.ru/cert.pem'), 'utf-8'),
+        ca: [fs.readFileSync(path.resolve('../../etc/letsencrypt/live/lenfincentr.ru/chain.pem'), 'utf-8')]
     };
 }
 
