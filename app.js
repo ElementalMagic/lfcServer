@@ -26,10 +26,10 @@ app.use(express.urlencoded({extended: true}));
 app.use(cookieParser());
 
 app.get('*', function (req, res, next) {
-    if (req.hostname === 'fabrikabloknotov.ru' || !process.env.CHECKDOMAIN) {
+    if (req.hostname === 'lenfincentr.ru' || !process.env.CHECKDOMAIN) {
         next();
     } else {
-        res.status(301).redirect('https://fabrikabloknotov.ru');
+        res.status(301).redirect('https://lenfincentr.ru');
     }
 });
 
@@ -77,15 +77,16 @@ app.use("/docs", express.static("docs"));
 app.use('/api/order', orderRouter);
 app.use('/api/login', loginRouter);
 app.use('/api/review', reviewRouter);
+app.use('/404', (req, res) => {
+    res.status(404).sendFile(path.resolve('../lfc/NotFound.html'))
+});
 app.use('/', (req, res, next) => {
     if (req.path != "/") {
         next();
     }
     res.status(200).sendFile(path.resolve('../lfc/index.html'));
 });
-app.use('/404', (req, res) => {
-    res.status(404).sendFile(path.resolve('../lfc/NotFound.html'))
-});
+
 app.use('*', (req, res) => {
     res.status(404).redirect('https://lenfincentr.ru/404');
 });
